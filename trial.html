@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IIT Guwahati Carbon Footprint Model</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #202020; /* Dark background color */
+        color: #ffffff; /* White text color */
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        height: 100vh;
+      }
+
+      header {
+        background-color: #004080;
+        padding: 20px;
+        text-align: center;
+        position: relative; /* Added */
+        height: 80px; /* Adjusted height to match logo */
+      }
+
+      h1 {
+        font-size: 36px;
+        margin: 0;
+        margin-left: 130px; /* Added margin to prevent overlap */
+      }
+
+      /* Added logo style */
+      #logo {
+        position: absolute;
+        top: 50%; /* Position the logo vertically in the middle */
+        left: 20px; /* Position the logo on the left side with a 20px margin */
+        transform: translateY(-50%); /* Center the logo vertically */
+        height: 80px; /* Adjusted height */
+        width: auto; /* Set width to auto to maintain aspect ratio */
+      }
+
+      section {
+        margin-bottom: 30px;
+        text-align: left;
+        margin-left: 20px;
+      }
+
+      h2 {
+        color: #ffffff; /* White color for headings */
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly faded border */
+      }
+
+      th,
+      td {
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly faded border */
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #004080;
+        color: white;
+      }
+
+      button {
+        background-color: #004080;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Add a little gap below each table */
+      section table + button {
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img
+        src="IITG_White.png"
+        alt="IIT Guwahati Logo"
+        id="logo"
+      />
+      <h1>IIT Guwahati Carbon Footprint Model</h1>
+    </header>
+
+    <section>
+      <h2>Scope 1 Emissions</h2>
+      <table id="scope1Table">
+        <!-- Table for displaying Scope 1 data -->
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Input (units)</th>
+          <th>Emission (tCO2e)</th>
+        </tr>
+        <!-- Placeholder rows - Replace with your actual calculations -->
+        <tr>
+          <td>Category 1</td>
+          <td>Diesel Consumed by Diesel Generator per Month (in liters)</td>
+          <td>
+            <input
+              type="number"
+              id="category1Input"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="category1Emission">---</td>
+        </tr>
+        <tr>
+          <td>Category 2</td>
+          <td>No. of Trips Taken by Ambulances per Day</td>
+          <td>
+            <input
+              type="number"
+              id="category2Input"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="category2Emission">---</td>
+        </tr>
+        <tr>
+          <td>Category 3</td>
+          <td>No. of Trips Taken by Buses per Day</td>
+          <td>
+            <input
+              type="number"
+              id="category3Input"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="category3Emission">---</td>
+        </tr>
+        <tr>
+          <td>Category 4</td>
+          <td>No. of Hostels</td>
+          <td>
+            <input
+              type="number"
+              id="category4Input"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="category4Emission">---</td>
+        </tr>
+
+        <tr>
+          <td>Category 5</td>
+          <td>Total faculty members within campus</td>
+          <td>
+            <input
+              type="number"
+              id="category5Input"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="category5Emission">---</td>
+        </tr>
+      </table>
+      <button onclick="calculateScope1Emissions()">
+        Calculate Scope 1 Emissions
+      </button>
+    </section>
+
+    <section>
+      <h2>Scope 2 Emissions</h2>
+      <table id="scope2Table">
+        <!-- Table for displaying Scope 2 data -->
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Input (units)</th>
+          <th>Emission (tCO2e)</th>
+        </tr>
+        <tr>
+          <td>Category 1</td>
+          <td>Electricity Consumption per Year (in KWh)</td>
+          <td>
+            <input
+              type="number"
+              id="electricityInput"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="electricityEmission">---</td>
+        </tr>
+      </table>
+      <button onclick="calculateScope2Emissions()">
+        Calculate Scope 2 Emissions
+      </button>
+    </section>
+
+    <section>
+      <h2>Scope 3 Emissions</h2>
+      <table id="scope3Table">
+        <!-- Table for displaying Scope 3 data -->
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Input (units)</th>
+          <th>Emission (tCO2e)</th>
+        </tr>
+        <tr>
+          <td>Category 1</td>
+          <td>
+            Aerial Distance Traveled by Faculty Members per Year (in miles)
+          </td>
+          <td>
+            <input
+              type="number"
+              id="businessTravelInput"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="businessTravelEmission">---</td>
+        </tr>
+        <tr>
+          <td>Category 2</td>
+          <td>Distance Covered for Waste Disposal per Year (in km)</td>
+          <td>
+            <input
+              type="number"
+              id="wasteDisposalInput"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="wasteDisposalEmission">---</td>
+        </tr>
+        <tr>
+          <td>Category 3</td>
+          <td>
+            Distance Covered for Transportation of Construction Material + Paper
+            + Lab Equipment per Year (in km)
+          </td>
+          <td>
+            <input
+              type="number"
+              id="constructionInput"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="constructionEmission">---</td>
+        </tr>
+      </table>
+      <button onclick="calculateScope3Emissions()">
+        Calculate Scope 3 Emissions
+      </button>
+    </section>
+
+    <section>
+      <h2>Calculate Total Emissions</h2>
+      <button onclick="calculateTotalEmissions()">
+        Calculate Total Emissions
+      </button>
+      <p>Total Emissions: <span id="totalEmissions">---</span> tCO2e</p>
+    </section>
+
+    <section>
+      <h2>Absorptions</h2>
+      <table id="absorptionTable">
+        <!-- Table for displaying Absorptions data -->
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Input (units)</th>
+          <th>Absorption (tCO2e)</th>
+        </tr>
+        <tr>
+          <td>Category 1</td>
+          <td>Area of vegetation covered in last year (in hectares)</td>
+          <td>
+            <input
+              type="number"
+              id="vegetationAreaInput"
+              placeholder="Enter units"
+            />
+          </td>
+          <td id="vegetationAbsorption">---</td>
+        </tr>
+      </table>
+      <button onclick="calculateTotalAbsorptions()">
+        Calculate Total Absorptions
+      </button>
+    </section>
+
+    <section>
+      <p>Total Absorptions: <span id="totalAbsorptions">---</span> tCO2e</p>
+    </section>
+    <section>
+      <h2>Net Emissions</h2>
+      <button onclick="calculateNetEmissions()">Calculate Net Emissions</button>
+      <p>Net Emissions: <span id="netEmissions">---</span> tCO2e</p>
+    </section>
+    <script>
+      // Placeholder for calculations - Replace with actual formulas from the report
+      function calculateScope1Emissions() {
+        // Example calculation for Diesel Generator
+        var category1Input =
+          parseFloat(document.getElementById("category1Input").value) || 0;
+        var category1Emission = category1Input * 0.032;
+        document.getElementById("category1Emission").textContent =
+          category1Emission.toFixed(3);
+
+        // Similar calculations for other categories
+        var category2Input =
+          parseFloat(document.getElementById("category2Input").value) || 0;
+        var category2Emission = category2Input * 0.149;
+        document.getElementById("category2Emission").textContent =
+          category2Emission.toFixed(3);
+
+        var category3Input =
+          parseFloat(document.getElementById("category3Input").value) || 0;
+        var category3Emission = category3Input * 1.951;
+        document.getElementById("category3Emission").textContent =
+          category3Emission.toFixed(3);
+
+        var category4Input =
+          parseFloat(document.getElementById("category4Input").value) || 0;
+        var category4Emission = category4Input * 72.47;
+        document.getElementById("category4Emission").textContent =
+          category4Emission.toFixed(3);
+
+        var category5Input =
+          parseFloat(document.getElementById("category5Input").value) || 0;
+        var category5Emission = category5Input * 0.557;
+        document.getElementById("category5Emission").textContent =
+          category5Emission.toFixed(3);
+
+        // Display or use the emissions as needed
+      }
+
+      function calculateScope2Emissions() {
+        // Example calculation for Electricity Consumption
+        var electricityInput =
+          parseFloat(document.getElementById("electricityInput").value) || 0;
+        var electricityEmission = electricityInput * 0.00094;
+        document.getElementById("electricityEmission").textContent =
+          electricityEmission.toFixed(3);
+
+        // Display or use the emissions as needed
+      }
+
+      function calculateScope3Emissions() {
+        // Example calculation for Business Travel
+        var businessTravelInput =
+          parseFloat(document.getElementById("businessTravelInput").value) || 0;
+        var businessTravelEmission = businessTravelInput * 86.48;
+        document.getElementById("businessTravelEmission").textContent =
+          businessTravelEmission.toFixed(3);
+
+        // Example calculation for Waste Disposal
+        var wasteDisposalInput =
+          parseFloat(document.getElementById("wasteDisposalInput").value) || 0;
+        var wasteDisposalEmission = wasteDisposalInput * 0.000178;
+        document.getElementById("wasteDisposalEmission").textContent =
+          wasteDisposalEmission.toFixed(3);
+
+        // Example calculation for Construction Material + Paper + Lab Equipment
+        var constructionInput =
+          parseFloat(document.getElementById("constructionInput").value) || 0;
+        var constructionEmission = constructionInput * 0.000178;
+        document.getElementById("constructionEmission").textContent =
+          constructionEmission.toFixed(3);
+
+        // Display or use the emissions as needed
+      }
+
+      function calculateTotalEmissions() {
+        var totalEmissions = 0;
+
+        // Add Scope 1 emissions
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("category1Emission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("category2Emission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("category3Emission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("category4Emission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("category5Emission").textContent
+          ) || 0;
+
+        // Add Scope 2 emissions
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("electricityEmission").textContent
+          ) || 0;
+
+        // Add Scope 3 emissions
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("businessTravelEmission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("wasteDisposalEmission").textContent
+          ) || 0;
+        totalEmissions +=
+          parseFloat(
+            document.getElementById("constructionEmission").textContent
+          ) || 0;
+
+        // Display or use the total emissions as needed
+        document.getElementById("totalEmissions").textContent =
+          totalEmissions.toFixed(3);
+      }
+      function calculateTotalAbsorptions() {
+        var vegetationAreaInput =
+          parseFloat(document.getElementById("vegetationAreaInput").value) || 0;
+        var vegetationAbsorption = vegetationAreaInput * 3;
+        document.getElementById("vegetationAbsorption").textContent =
+          vegetationAbsorption.toFixed(3);
+
+        // Calculate and display total absorptions
+        var totalAbsorptions = vegetationAbsorption;
+        document.getElementById("totalAbsorptions").textContent =
+          totalAbsorptions.toFixed(3);
+      }
+
+      function calculateNetEmissions() {
+        var totalEmissions =
+          parseFloat(document.getElementById("totalEmissions").textContent) ||
+          0;
+        var totalAbsorptions =
+          parseFloat(document.getElementById("totalAbsorptions").textContent) ||
+          0;
+
+        // Calculate net emissions
+        var netEmissions = totalEmissions - totalAbsorptions;
+
+        // Display net emissions
+        document.getElementById("netEmissions").textContent =
+          netEmissions.toFixed(3);
+      }
+    </script>
+  </body>
+</html>
